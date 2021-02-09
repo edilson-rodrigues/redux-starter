@@ -1,21 +1,18 @@
-const numbers = [1, 2, 3];
+import store from './store/store';
 
-// adding
-const index = numbers.indexOf(2);
-const added = [
-  ...numbers.slice(0, index),
-  4,
-  ...numbers.slice(index)
-];
+store.dispatch({
+  type: 'BUG_ADDED',
+  payload: {
+    description: "BUG",
+  }
+});
 
-console.log('numbers', added);
+store.dispatch({
+  type: 'BUG_REMOVED',
+  payload: {
+    id: 1,
+  }
+});
 
-// removing
 
-const removed = numbers.filter(n => n !== 2);
-
-console.log('removed', removed);
-
-// updating
-const updated = numbers.map(n => n === 2 ? 20 : n);
-console.log('updated', updated);
+console.log(store.getState());
