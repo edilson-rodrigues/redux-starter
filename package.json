@@ -10,6 +10,7 @@
   "author": "Mosh Hamedani",
   "license": "ISC",
   "devDependencies": {
+    "redux-devtools-extension": "^2.13.8",
     "webpack": "4.41.6",
     "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.10.3"
