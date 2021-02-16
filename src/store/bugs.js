@@ -7,7 +7,7 @@ export const bugResolved = createAction("bugResolved");
 
 export const bugRemoved = createAction("bugRemoved");
 
-// Reducer
+// Reducer - Clean - creating reducers
 let lastId = 0;
 
 export default createReducer([], {
@@ -25,3 +25,4 @@ export default createReducer([], {
     bugs[index].resolved = true;
   }
 });
+
