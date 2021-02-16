@@ -1,4 +1,4 @@
-import store from './customStore';
+import store from './store/store';
 import * as actions from './store/actions/actions';
 
 store.subscribe(() => {
