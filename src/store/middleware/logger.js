@@ -1,7 +1,7 @@
 // SNA = store - next - action
 
 const logger = param => store => next => action => {
-  console.log("Logging", param);
+  /* console.log("Logging", param); */
   return next(action);
   // logger > toast > api
 }

@@ -54,8 +54,6 @@ export const {
 
 export default slice.reducer;
 
-console.log(bugsReceived);
-
 // Action Creators
 const url = "/bugs";
 
