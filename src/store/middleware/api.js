@@ -4,8 +4,11 @@ import * as actions from '../api';
 const api = ({ dispatch }) => next => async action => {
   if (action.type !== actions.apiCallBegan.type) return next(action);
 
+  const { url, method, data, onStart, onSuccess, onError } = action.payload;
+
+  if (onStart) dispatch({ type: onStart });
+
   next(action);
-  const { url, method, data, onSuccess, onError } = action.payload;
 
   try {
     const response = await axios.request({
@@ -14,17 +17,17 @@ const api = ({ dispatch }) => next => async action => {
       method,
       data
     });
-
     // General
     dispatch(actions.apiCallSuccess(response.data));
     // Specific
     if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
 
   } catch (error) {
+    console.log('error', onError)
     // General
-    dispatch(actions.apiCallFailed(error));
+    dispatch(actions.apiCallFailed(error.message));
     // Specific
-    if (onError) dispatch({ type: onError, payload: error });
+    if (onError) dispatch({ type: onError, payload: error.message });
   }
 }
 
