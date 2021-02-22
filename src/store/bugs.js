@@ -25,7 +25,7 @@ const slice = createSlice({
       bugs.lastFetch = Date.now();
     },
     bugAssignedToUser: (bugs, action) => {
-      const { bugId, userId } = action.payload;
+      const { id: bugId, userId } = action.payload;
       const idx = bugs.list.findIndex(bug => bug.id === bugId);
       bugs.list[idx].userId = userId;
     },
