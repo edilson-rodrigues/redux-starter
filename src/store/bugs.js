@@ -29,9 +29,12 @@ const slice = createSlice({
       const idx = bugs.list.findIndex(bug => bug.id === bugId);
       bugs.list[idx].userId = userId;
     },
+    // command - event
+    // addBug - bugAdded
     bugAdded: (bugs, action) => {
       bugs.list.push(action.payload);
     },
+    //resolveBug (command) - bugResolved (event)
     bugResolved: (bugs, action) => {
       const index = bugs.list.findIndex(bug => bug.id === action.payload.id);
       bugs.list[index].resolved = true;
@@ -79,6 +82,22 @@ export const addBug = bug => apiCallBegan({
   data: bug,
   onSuccess: bugAdded.type,
 
+});
+
+export const resolveBug = id => apiCallBegan({
+  //bugs,
+  // PATCH/bugs/1
+  url: `${url}/${id}`,
+  method: 'patch',
+  data: { resolved: true },
+  onSuccess: bugResolved.type,
+});
+
+export const assignBugToUser = (bugId, userId) => apiCallBegan({
+  url: `${url}/${bugId}`,
+  method: 'patch',
+  data: { userId },
+  onSuccess: bugAssignedToUser.type,
 });
 
 /* // Selectors
