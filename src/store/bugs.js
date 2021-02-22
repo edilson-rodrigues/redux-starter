@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
+import axios from 'axios';
 import moment from 'moment';
 import { apiCallBegan } from './api';
 
@@ -42,7 +43,7 @@ const slice = createSlice({
   }
 });
 
-const {
+export const {
   bugAdded,
   bugResolved,
   bugAssignedToUser,
@@ -75,6 +76,9 @@ export const loadBugs = () => (dispatch, getState) => {
     }),
   );
 }
+// make an api call
+// promisse resolved => dispatch(success)
+
 
 export const addBug = bug => apiCallBegan({
   url,
