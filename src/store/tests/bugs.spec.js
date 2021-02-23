@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { addBug, getUnresolvedBugs, loadBugs, resolveBug } from '../bugs';
+import { addBug, assignBugToUser, getUnresolvedBugs, loadBugs, resolveBug } from '../bugs';
 import configureStore from '../configureStore';
 
 describe("bugsSlice", () => {
@@ -50,6 +50,16 @@ describe("bugsSlice", () => {
 
         expect(fakeAxios.history.get.length).toBe(1);
       });
+    });
+
+    it("must assign a bug to a user", async () => {
+      fakeAxios.onPatch("/bugs/1").reply(200, { id: 1, userId: 3 });
+      fakeAxios.onPost("/bugs").reply(200, { id: 1, description: "a" });
+
+      await store.dispatch(addBug({}));
+      await store.dispatch(assignBugToUser(1, 3));
+
+      expect(bugsSlice().list[0].userId).toBe(3);
     });
 
     describe("if the bugs don't exist in the cache", () => {
